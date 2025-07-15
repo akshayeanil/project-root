@@ -1,4 +1,4 @@
-const apiBase = "https://bmuwavo1oh.execute-api.us-east-1.amazonaws.com"; // Replace with your actual API Gateway base URL
+const apiBase = "https://jwrtp0hfb4.execute-api.us-east-1.amazonaws.com"; // Replace with your actual API Gateway base URL
 
 document.getElementById("task-form").addEventListener("submit", async (e) => {
   e.preventDefault();
