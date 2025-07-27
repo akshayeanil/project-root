@@ -39,28 +39,28 @@ jobs:
 
       - name: 🚀 Deploy getTask Lambda
         run: |
-          zip getTask.zip lambda/getTasks.py
+          zip -j getTask.zip lambda/getTasks.py
           aws lambda update-function-code \
             --function-name getTask \
             --zip-file fileb://getTask.zip
 
       - name: 🚀 Deploy createTask Lambda
         run: |
-          zip createTask.zip lambda/createTask.py
+          zip -j createTask.zip lambda/createTask.py
           aws lambda update-function-code \
             --function-name createTask \
             --zip-file fileb://createTask.zip
 
       - name: 🚀 Deploy updateTask Lambda
         run: |
-          zip updateTask.zip lambda/updateTask.py
+          zip -j updateTask.zip lambda/updateTask.py
           aws lambda update-function-code \
             --function-name updateTask \
             --zip-file fileb://updateTask.zip
 
       - name: 🚀 Deploy deleteTask Lambda
         run: |
-          zip deleteTask.zip lambda/deleteTask.py
+          zip -j deleteTask.zip lambda/deleteTask.py
           aws lambda update-function-code \
             --function-name deleteTask \
             --zip-file fileb://deleteTask.zip
