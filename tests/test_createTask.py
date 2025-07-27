@@ -1,5 +1,11 @@
 import unittest
 from unittest.mock import patch
+import sys
+import os
+
+# Add lambda folder to sys.path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lambda'))
+
 import createTask
 
 class TestCreateTask(unittest.TestCase):
