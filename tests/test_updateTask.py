@@ -4,6 +4,7 @@ import json
 import sys
 import os
 
+# Add lambda folder to sys.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lambda'))
 
 with patch('boto3.resource') as mock_dynamodb_resource:
@@ -16,8 +17,8 @@ class TestUpdateTask(unittest.TestCase):
     @patch.object(updateTask, 'table')
     def test_lambda_handler_success(self, mock_table):
         event = {
+            'pathParameters': {'taskId': '1'},  # Added to fix KeyError
             'body': json.dumps({
-                'taskId': '1',
                 'title': 'Updated Task',
                 'status': 'completed'
             })
