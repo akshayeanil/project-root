@@ -1,22 +1,28 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 import sys
 import os
 
 # Add lambda folder to sys.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'lambda'))
 
-import createTask
+with patch('boto3.resource') as mock_dynamodb_resource:
+    mock_table = MagicMock()
+    mock_dynamodb_resource.return_value.Table.return_value = mock_table
+    import createTask
 
 class TestCreateTask(unittest.TestCase):
 
-    @patch('createTask.table')
+    @patch.object(createTask, 'table')
     def test_lambda_handler_success(self, mock_table):
         # Arrange
         event = {
             'body': '{"taskId": "1", "title": "Test Task", "status": "pending"}'
         }
         context = {}
+
+        # Set up mock return value
+        mock_table.put_item.return_value = {}
 
         # Act
         response = createTask.lambda_handler(event, context)
