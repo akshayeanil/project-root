@@ -23,49 +23,41 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1  # update if your AWS region is different
+          aws-region: us-east-1
 
-      # 🚀 Deploy getTask Lambda
-      - name: Deploy getTask Lambda
+      # Zip and deploy getTasks.py → getTask
+      - name: 🚀 Deploy getTask Lambda
         run: |
-          cd lambda/get-task
-          zip -r ../../getTask.zip .
-          cd ../..
+          zip getTask.zip Lambda/getTasks.py
           aws lambda update-function-code \
             --function-name getTask \
             --zip-file fileb://getTask.zip
 
-      # 🚀 Deploy createTask Lambda
-      - name: Deploy createTask Lambda
+      # Zip and deploy createTasks.py → createTask
+      - name: 🚀 Deploy createTask Lambda
         run: |
-          cd lambda/create-task
-          zip -r ../../createTask.zip .
-          cd ../..
+          zip createTask.zip Lambda/createTasks.py
           aws lambda update-function-code \
             --function-name createTask \
             --zip-file fileb://createTask.zip
 
-      # 🚀 Deploy updateTask Lambda
-      - name: Deploy updateTask Lambda
+      # Zip and deploy updateTasks.py → updateTask
+      - name: 🚀 Deploy updateTask Lambda
         run: |
-          cd lambda/update-task
-          zip -r ../../updateTask.zip .
-          cd ../..
+          zip updateTask.zip Lambda/updateTasks.py
           aws lambda update-function-code \
             --function-name updateTask \
             --zip-file fileb://updateTask.zip
 
-      # 🚀 Deploy deleteTask Lambda
-      - name: Deploy deleteTask Lambda
+      # Zip and deploy deleteTasks.py → deleteTask
+      - name: 🚀 Deploy deleteTask Lambda
         run: |
-          cd lambda/delete-task
-          zip -r ../../deleteTask.zip .
-          cd ../..
+          zip deleteTask.zip Lambda/deleteTasks.py
           aws lambda update-function-code \
             --function-name deleteTask \
             --zip-file fileb://deleteTask.zip
 
-      # 🌐 Deploy frontend to S3
+      # 🌐 Sync frontend to S3
       - name: Sync frontend to S3
         run: |
           aws s3 sync frontend/ s3://my-todo-frontend-files --delete
